@@ -19,6 +19,7 @@ var originAttachSchema = Mongo.Collection.prototype.attachSchema,
 
     collection._languages = options.languages;
     collection.attachI18nSchema = function (ss, opts) {
+      ss = (ss instanceof SimpleSchema)? ss._schema : ss;
       var i18nSchema = _.extend({}, ss), langs;
       if (typeof ss !== 'object') {
         throw new Meteor.Error('schema-error',
