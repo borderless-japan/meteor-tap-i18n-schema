@@ -19,7 +19,7 @@ var originAttachSchema = Mongo.Collection.prototype.attachSchema,
 
     collection._languages = options.languages;
     collection.attachI18nSchema = function (ss, opts) {
-      ss = (ss instanceof SimpleSchema)? ss._schema : ss;
+      ss = (ss instanceof SimpleSchema)? ss.schema() : ss;
       var i18nSchema = _.extend({}, ss), langs;
       if (typeof ss !== 'object') {
         throw new Meteor.Error('schema-error',
@@ -37,9 +37,13 @@ var originAttachSchema = Mongo.Collection.prototype.attachSchema,
       _.each(i18nSchema, function (field, key) {
         if (!field['i18n']) return;
         _.each(langs, function (lang, index) {
-          i18nSchema['i18n.' + lang + '.' + key] = _.extend({}, field, {
+          var value = _.extend({}, field, {
             optional: true
           });
+          if (opts && opts.i18n && opts.i18n.autolabel) {
+            value.label += ' ('+lang+')';
+          }
+          i18nSchema['i18n.' + lang + '.' + key] = value;
         });
       });
 
