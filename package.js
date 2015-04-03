@@ -18,7 +18,7 @@ Package.onUse(function (api) {
     'aldeed:collection2@2.3.2'
   ], both);
 
-  api.addFiles('ansyg:tap-i18n-schema.js', both);
+  api.addFiles('ansyg-tap-i18n-schema.js', both);
 });
 
 Package.onTest(function (api) {
@@ -32,5 +32,5 @@ Package.onTest(function (api) {
 
   api.use('ansyg:tap-i18n-schema');
 
-  api.addFiles('ansyg:tap-i18n-schema-tests.js');
+  api.addFiles('ansyg-tap-i18n-schema-tests.js');
 });

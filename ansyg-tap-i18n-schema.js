@@ -9,7 +9,9 @@ var originAttachSchema = Mongo.Collection.prototype.attachSchema,
   i18nCollection = function (name, options) {
     var collection = originCollection(name, options);
 
-    if (Meteor.isClient && ((Package["yogiben:admin"] != null) || (Package["ansyg:i18n-admin"] != null))) {
+    if (Meteor.isClient && ((Package["yogiben:admin"] != null) ||
+      (Package["ansyg:i18n-admin"] != null) ||
+      (Package["orionjs:core"] != null))) {
       collection._disableTransformationOnRoute(/^\/admin(\/?$|\/)/);
     }
 
